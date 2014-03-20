@@ -1,0 +1,245 @@
+set nocompatible
+set t_Co=256
+set background=light
+"set guifont=Monaco:h10
+set encoding=utf-8
+
+filetype on
+filetype indent on
+filetype plugin on
+
+set laststatus=2
+""set statusline=\ %f%m%r%h%w\ %=%({%{&ff}\|%{(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\")}%k\|%Y}%)\ %([%l,%v][%p%%]\ %)
+"set statusline=%<%f%m\ \[%{&ff}:%{&fenc}:%Y]\ %{getcwd()}\ \ \[%{strftime('%Y/%b/%d\ %a\ %I:%M\ %p')}\]\ %=\ Line:%l\/%L\ Column:%c%V\ %P
+"set statusline=%<%f%m\ \ %{getcwd()}\ \ \ %=\ Line:%l\/%L\ Column:%c%V\ %P
+
+set backspace=2
+syntax on
+"syntax off
+
+
+let g:solarized_termcolors=256
+"color wombat256
+color solarized
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+"Don't show tab and other characters as signs
+set nolist
+set showmatch
+set incsearch
+set nohlsearch
+set number
+"set cursorline
+set cursorcolumn
+set ignorecase
+set smartcase
+set ai
+set smartindent
+set foldenable
+set mousehide
+set wrap
+set linespace=3
+set go+=a
+
+"By folkes
+set wc=<TAB>
+set wmnu
+set wildmode=list:longest,list:full
+set ruler
+set ru
+set splitbelow
+set gdefault
+set noedcompatible
+
+set hidden
+set history=700
+
+"This will remove the Auto-indetation while copy and Paste
+"set paste
+"Enables :Paste to just do what you want to paste
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+nnoremap <F5> :UndotreeToggle<cr>
+
+nmap <F3> :NERDTreeToggle<CR>
+nmap ,rc :e $MYVIMRC<cr>
+nmap ,rl :e ~/.vimrc.local<cr>
+nmap <space> :
+
+autocmd bufwritepost .vimrc.local source $MYVIMRC
+autocmd bufwritepost .gvimrc.local source $MYVIMRC
+
+"Template should be completed
+autocmd BufNewFile * silent! Or $VIMHOME/templates/%:e.tpl
+
+"Auto change the directory to that of file in Buffer
+"Debate this is needed or not?
+autocmd BufEnter * cd %:p:h
+
+"Trial from Jackinsella's site See what happens
+nnoremap / /\v
+vnoremap / /\v
+"statico Rules that we have to start
+nmap j gj
+nmap k gk
+"nmap <C-n> :bnext<CR>
+"nmap <C-p> :bprev<CR>
+"My CTRLP Trial Is wq
+nmap ; :CtrlPBuffer<CR>
+
+"Copy should be easier then this.
+"vnoremap <leader>y "+yy
+"noremap <leader>Y "+Y
+"noremap <leader>p "+p
+"vnoremap <C-c> "*yy
+"vmap <C-c> "+yi
+"vmap <C-x> "+c
+"vmap <C-v> c<ESC>"+p
+"imap <C-v> <ESC>"+pa
+
+" Use Some of this settings for CTRLP
+let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+"let g:ctrlp_custom_ignore = '\v\~$|\.(o|swo|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_switch_buffer = 0
+let g:indent_guides_enable_on_vim_startup = 0
+let nerdtreeshowhidden = 1
+
+"Disable my pluging
+"UnBundle 'neocomplcache'
+""UnBundle 'airline'
+"UnBundle 'bling/vim-airline'
+
+set nospell
+let g:neocomplcache_disable_auto_complete = 1 
+
+"Nettuts PART 4
+set autowrite
+"Set map leader than \
+let mapleader = ","
+set timeoutlen=500
+
+"set statusline=%<%f%m\ \ %{getcwd()}\ \ \ %=\ Line:%l\/%L\ Column:%c%V\ %P
+
+" Try and set up abriviation
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+iab lorpython def main:
+
+
+
+"Customize VIM airline
+"function! AirlineInit()
+  "let g:airline_section_a = 
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_theme="wombat"
+
+let g:airline_section_z = airline#section#create_right(['%P, %l/%L', '%c%V'])
+"let g:airline_powerline_fonts = 1
+
+"Steve Francia
+set cursorline                  " highlight current line
+"hi CursorColumn cuibg=lightgrey
+"hi CursorLine cterm=NONE  ctermfg=lightblue
+hi CursorLine cterm=Bold ctermfg=57
+"highlight Visual ctermfg=bg ctermbg=fg
+
+set nonu
+set scrolljump=5
+set scrolloff=3
+
+" Easier moving in tabs and windows
+     map <C-J> <C-W>j<C-W>_
+     map <C-K> <C-W>k<C-W>_
+     map <C-L> <C-W>l<C-W>_
+     map <C-H> <C-W>h<C-W>_
+     map <C-K> <C-W>k<C-W>_
+"Do you want vsplit or ssplit
+  nnoremap <leader>w <C-W>v<C-W>l
+  nnoremap <Tab> <C-w><C-w>
+"Latest vimrc from "amix.dk/vim/vimrc.html"
+set magic
+"Good for faster execution of macros "set lazyredraw
+"How many tenths of a second to blink when matching brackets
+set mat=2
+
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+"Set autowrite feature on losing focus.
+"au FocusLost * :wa
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+"Remember info about open buffers on close 
+set viminfo^=%
+
+"Crypy Stronger
+set cryptmethod=blowfish
+
+"#Remember about sessions
+autocmd VimLeave * :mksession! $HOME."/.vimsessions/session.vim"
+
+"we remember this is nice
+"#Now one more time try to solve clipboard problem
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
+
+
+".vimrc.local
+
+"autocmd InsertEnter * setlocal spell
+"autocmd InsertLeave * setlocal nospell
+
+nmap <silent> <leader>s :set spell<CR>
+nmap <silent> <leader>ss :set spell!<CR>
+
+
+"Try to toggle between two"
+command! WRIT call WritToggle()
+nnoremap \ gqip
+nnoremap <S-\> gggqG
+nnoremap <C-\> :WRIT<cr>
+
+let s:writ = 0
+
+"function! WritToggle()
+    "if s:writ
+      "let s:writ = 0
+      "set foldcolumn=0
+        ""SOURCE
+    "else
+      ""SOURCE
+        "let s:writ = 1
+        "setlocal nonumber
+        "setlocal norelativenumber
+        "set foldcolumn=5
+        "set columns=100
+
+        ""setlocal formatoptions=ant
+        "setlocal textwidth=80
+        "setlocal wrapmargin=0
+
+        ""setlocal noautoindent
+        "setlocal nocindent
+        "setlocal nosmartindent
+        "setlocal indentexpr=
+
+        "let &guifont=substitute(&guifont, ':h\zs\d\+', '\=submatch(0)+1', '')
+        "normal gggqG
+        "write
+    "endif
+"endfunc

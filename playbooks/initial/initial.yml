@@ -1,0 +1,37 @@
+---
+ - hosts: all
+   user: abhay
+   sudo: True
+   #vars_files:
+    #- [ "vars/{{ ansible_distribution.yml }}", "vars/defaults.yml"]
+   #roles: 
+    #- sudo 
+ - include: ../sudo/sudo.yml
+
+
+   tasks:
+    #- include: ../sudo/sudo.yml
+    
+    - name: Add initial files through loop and sync module
+      synchronize: src={{ item.files }} dest=/home/{{ item.user }}/ recursive=yes
+      with_items:
+        - { files: 'files/.spf*', user: abhay }
+        - {files: files/.tmux.conf, user: abhay}
+        - {files: files/.zshrc, user: abhay}
+        - {files: files/.vimrc.local, user: abhay}
+        #- {files: files/.ssh/config, user: abhay}
+        - {files: files/.oh-my-zsh, user: abhay}
+
+    - name: Add config file for .ssh
+      synchronize: src={{ item.files }} dest=/home/{{ item.user }}/{{ item.files }} recursive=yes
+      with_items:
+       - { files: files/.ssh/config, user: abhay }
+
+    - name: Add .vimrc and .vim folder to the setup
+      file: src=/home/{{ item.user }}/{{ item.src_file }} dest={{ item.dest_file }} owner={{ item.user }} state=link
+      with_items:
+        - { user: abhay , src_file: '.spf13-vim.3/.vim', dest_file: '/home/abhay/.vim'}
+        - { user: abhay, src_file: '.spf13-vim.3/.vimrc', dest_file: '/home/abhay/.vimrc'}
+        - { user: abhay, src_file: '.spf13-vim.3/.vimrc.bundles', dest_file: '/home/abhay/.vimrc.bundles'}
+        - { user: abhay, src_file: '.spf13-vim.3/.vimrc.bundles.local', dest_file: '/home/abhay/.vimrc.bundles.local'}
+
