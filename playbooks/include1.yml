@@ -1,0 +1,18 @@
+---
+- hosts: common
+  tasks:
+    - include: tasks/echo1.yml
+
+    - name: "Echo few variables"
+      shell: "echo {{ ansible_architecture }} >> /tmp/architecture"
+      shell: "echo {{ ansible_devices.sda.model }} \t {{ ansible_architecture }} >> /tmp/architecture"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: "Register home dir and echo them out"
+      command: "ls /"
+      register: home_dirs
+
+    - name: "Print them out"
+      shell: "echo {{ item }} >> /tmp/architecture"
+      with_items: home_dirs.split()
+      #Same as with_items: home_dirs.stdout_lines

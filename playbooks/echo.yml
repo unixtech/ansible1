@@ -1,0 +1,10 @@
+---
+- hosts: common
+  tasks:
+    - name: echo Pac
+      shell: "/bin/echo Bhuro >> /tmp/b.txt"
+  #   notify: restart ssh
+
+  #handlers:
+  # - name: restart ssh
+  #   service: name=sshd state=restarted
