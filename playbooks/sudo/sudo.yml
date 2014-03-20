@@ -1,0 +1,12 @@
+---
+- hosts: all
+  user: abhay
+  sudo: True
+  vars_files:
+    - [ "vars/{{ ansible_distribution}}.yml", "vars/defaults.yml"]
+
+  tasks:
+    - name: "Deploy SUDO file"
+      #copy: src=files/sudoers_{{ ansible_distribution }} dest=/usr/local/etc/sudoers owner=root group=wheel mode=0440
+      copy: src={{ sudoers }} dest={{ DEST }} owner=root group={{ GROUP }} mode=0440
+      when: ansible_distribution == "FreeBSD"
