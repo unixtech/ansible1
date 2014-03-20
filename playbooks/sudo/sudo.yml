@@ -14,4 +14,4 @@
     - name: "Deploy SUDO file"
       #copy: src=files/sudoers_{{ ansible_distribution }} dest=/usr/local/etc/sudoers owner=root group=wheel mode=0440
       copy: src={{ sudoers }} dest={{ DEST }} owner=root group={{ GROUP }} mode=0440 validate='visudo -cf %s'
-      when: ansible_distribution == "FreeBSD"
+      #when: ansible_distribution == "FreeBSD"

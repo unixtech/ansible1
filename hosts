@@ -2,3 +2,6 @@
 10.0.25.26  ansible_python_interpreter=/usr/local/bin/python
 #10.0.25.27  ansible_python_interpreter=/usr/local/bin/python  ansible_ssh_host=10.0
 10.0.25.1   ansible_ssh_user=abhay  ansible_python_interpreter=/usr/bin/python ansible_ssh_host=10.0.25.1
+
+[yet]
+10.0.25.25   ansible_python_interpreter=/usr/bin/python ansible_ssh_host=10.0.25.25 ansible_ssh_user=abhay
