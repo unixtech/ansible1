@@ -5,8 +5,13 @@
   vars_files:
     - [ "vars/{{ ansible_distribution}}.yml", "vars/defaults.yml"]
 
+
+  tasks:
+    - name: "Add user abhay and Make it part of Wheel"
+    - user: name=abhay comment="Abhay Trivedi admin acc" state=present groups='wheel, abhay' createhome=yes login_class=default shell={{ SHELL }} password=$6$rounds=100000$D9It5wlaYTNqLevN$hzffiQkTQfMFz8t81LL0rxe4a7zHxWIHQPgesIlC9sanPtVAEOjEV7aNHGuBzn7hShO3swfwpAkN.TAx70o5j0
+
   tasks:
     - name: "Deploy SUDO file"
       #copy: src=files/sudoers_{{ ansible_distribution }} dest=/usr/local/etc/sudoers owner=root group=wheel mode=0440
-      copy: src={{ sudoers }} dest={{ DEST }} owner=root group={{ GROUP }} mode=0440
+      copy: src={{ sudoers }} dest={{ DEST }} owner=root group={{ GROUP }} mode=0440 validate='visudo -cf %s'
       when: ansible_distribution == "FreeBSD"

@@ -1,3 +1,4 @@
 sudoers_file: files/sudoers_{{ ansible_distribution}}
 DEST: /usr/local/etc/sudoers
 GROUP: wheel
+SHELL: /usr/local/bin/zsh
